@@ -1,0 +1,22 @@
+{% extends "socialnetwork/search.html" %}
+
+{% block content %}
+    <p id="id_page_name">Follower Stream</p>
+    <h2 id="error"> {{ error }}</h2>
+
+    <div id="global-posts"></div>
+
+    {% load static %}
+    <script src="{% static 'socialnetwork/stream.js' %}"></script>
+    <script>
+        const getPostURL = "{% url 'get-follower' %}"
+        const addCommentURL = "{% url 'add-comment' %}"
+        const getProfileURL = function(user_id) {
+            return "{% url 'other-profile' 0 %}".replace("0", user_id)
+        }
+
+        window.onload = loadPosts;
+        window.setInterval(loadPosts, 5000);
+    </script>
+
+{% endblock %}

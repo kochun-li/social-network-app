@@ -1,0 +1,16 @@
+{% extends "socialnetwork/base.html" %}
+
+{% block user-info %}
+    <nav>
+        <a id="id_nav_profile" href="{% url 'profile-edit' %}">{{ user.first_name }} {{ user.last_name }}</a>
+    </nav>
+{% endblock %}
+
+{% block search-bar %}
+    <nav>
+        <a id="id_nav_global_stream" href="{% url 'global-stream' %}">Global</a>
+        <a id="id_nav_follower_stream" href="{% url 'follower-stream' %}">Follower</a>
+        <a id="id_nav_logout" href="{% url 'logout' %}">Logout</a>
+    </nav>
+
+{% endblock %}

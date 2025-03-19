@@ -1,0 +1,40 @@
+{% extends "socialnetwork/search.html" %}
+{% load static %}
+
+{% block content %}
+    <p id="id_page_name">Profile Page for {{ user.first_name }} {{ user.last_name }}</p>
+    <div class="profile-container">
+        <div>
+            {% if not request.user.profile.picture %}
+                <img id="id_user_picture" src="{% static 'socialnetwork/images/default_profile_image.jpg' %}" style="width:200px;">
+            {% else %}
+                <img id="id_user_picture" src="{% url 'photo' request.user.id %}" style="width:200px;">
+            {% endif %}
+        </div>
+
+        <form enctype="multipart/form-data" action="{% url 'profile-edit' %}" method="POST">
+            <table>
+                {{ form.as_table }}
+            </table>
+            <div>
+                <button id="id_update_profile_button">Submit</button>
+            </div>
+            {% csrf_token %}
+        </form>
+        
+        <div>
+            You are following:
+            <ul>
+                {% for u in request.user.profile.following.all %}
+                <li>
+                    <a id="id_profile_link_{{ u }}" href="{% url 'other-profile' u.id %}">
+                        {{ u.first_name }} {{ u.last_name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+    </div>
+
+{% endblock %}
